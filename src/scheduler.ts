@@ -17,7 +17,24 @@ import { userBot } from './bots.js';
  *
  * A `last_*_sent` date column on the user row prevents double sends.
  */
-export async function runScheduledJobs(): Promise<{ processed: number; sent: number }> {
+export async function runScheduledJobs(): Promise<{ processed: number; sent: number; pruned?: number }> {
+  // Retention policy: expenses older than this many months are permanently
+  // deleted once a month. The DELETE is idempotent (second run finds nothing),
+  // so it is safe to attempt on every cron tick.
+  const EXPENSE_RETENTION_MONTHS = 3;
+
+  const now = new Date();
+  let pruned: number | undefined;
+  if (now.getUTCDate() <= 3) {
+    try {
+      pruned = await db.pruneOldExpenses(EXPENSE_RETENTION_MONTHS);
+    } catch (e) {
+      // Maintenance is best-effort: a prune failure must never block
+      // reminders or reports for the rest of the tick.
+      console.error('[cron] prune failed:', e);
+    }
+  }
+
   const users = await db.listActiveUsers();
   let sent = 0;
   for (const user of users) {
@@ -27,7 +44,7 @@ export async function runScheduledJobs(): Promise<{ processed: number; sent: num
       console.error(`[cron] user ${user.id} (${user.telegram_id}):`, e);
     }
   }
-  return { processed: users.length, sent };
+  return { processed: users.length, sent, ...(pruned !== undefined ? { pruned } : {}) };
 }
 
 async function runForUser(user: db.User): Promise<number> {

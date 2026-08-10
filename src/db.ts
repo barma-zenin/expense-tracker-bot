@@ -313,6 +313,19 @@ export async function deleteExpense(id: number, userId: number): Promise<void> {
   await sql`DELETE FROM expenses WHERE id = ${id} AND user_id = ${userId}`;
 }
 
+/**
+ * Permanently delete every expense dated before `months` months ago.
+ * Global (not per-user) — used by the monthly auto-prune retention policy.
+ * Returns the number of rows deleted.
+ */
+export async function pruneOldExpenses(months: number): Promise<number> {
+  const rows = await sql`
+    DELETE FROM expenses
+    WHERE expense_date < CURRENT_DATE - make_interval(months => ${months})
+    RETURNING id`;
+  return rows.length;
+}
+
 // ─── Conversation state (stateless serverless friendly) ──────────────
 
 export async function getState(userId: number): Promise<UserState | null> {
