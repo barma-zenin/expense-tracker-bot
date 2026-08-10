@@ -9,7 +9,6 @@
   },
   "scripts": {
     "dev": "tsx src/dev.ts",
-    "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "webhook:set": "node scripts/set-webhook.mjs"
   },
