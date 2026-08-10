@@ -1,4 +1,4 @@
-import { userBot, adminBot } from './bots';
+import { userBot, adminBot } from './bots.js';
 
 // `bot.start()` returns a promise that never resolves until the bot is
 // stopped, so we must NOT await it — otherwise the second bot would never

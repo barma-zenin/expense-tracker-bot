@@ -1,5 +1,5 @@
-import { config } from '../src/config';
-import { runScheduledJobs } from '../src/scheduler';
+import { config } from '../src/config.js';
+import { runScheduledJobs } from '../src/scheduler.js';
 
 /**
  * Scheduled-tasks endpoint. Call it every 15 minutes from cron-job.org:

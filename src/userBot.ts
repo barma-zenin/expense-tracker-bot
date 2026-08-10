@@ -1,8 +1,8 @@
 import { Bot, Context, InlineKeyboard } from 'grammy';
-import { config } from './config';
-import * as db from './db';
-import { isValidTimezone, localDateString, money, parseAmount } from './format';
-import * as msg from './messages';
+import { config } from './config.js';
+import * as db from './db.js';
+import { isValidTimezone, localDateString, money, parseAmount } from './format.js';
+import * as msg from './messages.js';
 
 export function registerUserBotHandlers(adminBot: Bot, userBot: Bot): void {
   userBot.catch((err) => console.error('[user-bot] error:', err));

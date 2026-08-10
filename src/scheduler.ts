@@ -1,12 +1,12 @@
-import * as db from './db';
+import * as db from './db.js';
 import {
   getLocalParts,
   isLastDayOfMonth,
   isSunday,
   localDateString,
-} from './format';
-import * as msg from './messages';
-import { userBot } from './bots';
+} from './format.js';
+import * as msg from './messages.js';
+import { userBot } from './bots.js';
 
 /**
  * Triggered by cron-job.org (e.g. every 15 minutes).

@@ -1,7 +1,7 @@
 import { Bot, Context, InlineKeyboard } from 'grammy';
-import { config } from './config';
-import * as db from './db';
-import { formatDate } from './format';
+import { config } from './config.js';
+import * as db from './db.js';
+import { formatDate } from './format.js';
 
 const STATUS_LABEL: Record<string, string> = {
   active: '🟢 Active',

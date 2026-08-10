@@ -1,5 +1,5 @@
 import { webhookCallback } from 'grammy';
-import { userBot } from '../src/bots';
+import { userBot } from '../src/bots.js';
 
 const handleUpdate = webhookCallback(userBot, 'http');
 

@@ -1,6 +1,6 @@
 import { InlineKeyboard } from 'grammy';
-import * as db from './db';
-import { formatDate, getLocalParts, localDateString, money, monthLabel, monthRange, shortDate, weekRange } from './format';
+import * as db from './db.js';
+import { formatDate, getLocalParts, localDateString, money, monthLabel, monthRange, shortDate, weekRange } from './format.js';
 
 // ─── Small building blocks ────────────────────────────────────────────
 

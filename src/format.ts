@@ -1,4 +1,4 @@
-import { config } from './config';
+import { config } from './config.js';
 
 /** Format a number as money, e.g. LKR 1,500 or LKR 450.50 */
 export function money(n: number | string): string {
